@@ -1,0 +1,47 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def calcular_preco_venda():
+    try:
+        gastos_fixos = float(entry_gastos_fixos.get().replace(',', '.'))
+        gastos_variaveis = float(entry_gastos_variaveis.get().replace(',', '.'))
+        margem_lucro = float(entry_margem_lucro.get().replace(',', '.'))
+
+        custo_total = gastos_fixos + gastos_variaveis
+
+      
+        preco_venda = custo_total / (1 - (margem_lucro / 100))
+
+        
+        resultado.set(f"Preço de Venda: R$ {preco_venda:.2f}")
+    except ValueError:
+        messagebox.showerror("Erro", "Por favor, insira valores válidos.")
+
+# Criar janela
+root = tk.Tk()
+root.title("Calculadora de Preço de Venda")
+
+# Criar e posicionar elementos na janela
+tk.Label(root, text="Gastos Fixos (R$):").grid(row=0, column=0, sticky="w")
+tk.Label(root, text="Gastos Variáveis por Unidade (R$):").grid(row=1, column=0, sticky="w")
+tk.Label(root, text="Margem de Lucro Desejada (%):").grid(row=2, column=0, sticky="w")
+
+entry_gastos_fixos = tk.Entry(root)
+entry_gastos_fixos.grid(row=0, column=1)
+entry_gastos_variaveis = tk.Entry(root)
+entry_gastos_variaveis.grid(row=1, column=1)
+entry_margem_lucro = tk.Entry(root)
+entry_margem_lucro.grid(row=2, column=1)
+
+btn_calcular = tk.Button(root, text="Calcular Preço de Venda", command=calcular_preco_venda)
+btn_calcular.grid(row=3, column=0, columnspan=2)
+
+resultado = tk.StringVar()
+resultado_label = tk.Label(root, textvariable=resultado)
+resultado_label.grid(row=4, column=0, columnspan=2)
+
+# Iniciar a aplicação
+root.mainloop()
+
+
+
