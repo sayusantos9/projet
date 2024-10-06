@@ -1,0 +1,29 @@
+import string
+
+def cifra_cesar(texto, deslocamento):
+    caracteres = string.printable
+    tabela = str.maketrans(caracteres, caracteres[deslocamento:] + caracteres[:deslocamento])
+    return texto.translate(tabela)
+
+def forca_bruta(texto_cifrado, texto_original):
+    caracteres = string.printable
+    for deslocamento in range(len(caracteres)):
+        texto_decifrado = cifra_cesar(texto_cifrado, -deslocamento)
+        print(f"Deslocamento {deslocamento}: {texto_decifrado}")
+        if texto_decifrado == texto_original:
+            print("\nSenha encontrada!")
+            print(f"Deslocamento original: {deslocamento}")
+            print(f"Mensagem decodificada: {texto_decifrado}")
+            return
+    print("\nNão foi possível encontrar a senha original.")
+
+# Exemplo de uso
+if __name__ == "__main__":
+    mensagem_original = input("Digite a mensagem para codificar: ")
+    deslocamento = int(input("Digite o deslocamento para a cifra de César: "))
+
+    mensagem_cifrada = cifra_cesar(mensagem_original, deslocamento)
+    print(f"\nMensagem cifrada: {mensagem_cifrada}")
+
+    print("\nTentando decodificar usando força bruta:")
+    forca_bruta(mensagem_cifrada, mensagem_original)
