@@ -5,25 +5,39 @@ def cifra_cesar(texto, deslocamento):
     tabela = str.maketrans(caracteres, caracteres[deslocamento:] + caracteres[:deslocamento])
     return texto.translate(tabela)
 
-def forca_bruta(texto_cifrado, texto_original):
+def forca_bruta(texto_cifrado):
     caracteres = string.printable
+    print("\nTentativas de decodificação usando força bruta:")
     for deslocamento in range(len(caracteres)):
         texto_decifrado = cifra_cesar(texto_cifrado, -deslocamento)
         print(f"Deslocamento {deslocamento}: {texto_decifrado}")
-        if texto_decifrado == texto_original:
-            print("\nSenha encontrada!")
-            print(f"Deslocamento original: {deslocamento}")
-            print(f"Mensagem decodificada: {texto_decifrado}")
-            return
-    print("\nNão foi possível encontrar a senha original.")
 
 # Exemplo de uso
 if __name__ == "__main__":
-    mensagem_original = input("Digite a mensagem para codificar: ")
-    deslocamento = int(input("Digite o deslocamento para a cifra de César: "))
-
-    mensagem_cifrada = cifra_cesar(mensagem_original, deslocamento)
-    print(f"\nMensagem cifrada: {mensagem_cifrada}")
-
-    print("\nTentando decodificar usando força bruta:")
-    forca_bruta(mensagem_cifrada, mensagem_original)
+    while True:
+        print("\nEscolha uma opção:")
+        print("1 - Codificar uma mensagem")
+        print("2 - Decodificar uma mensagem (força bruta)")
+        print("0 - Sair")
+        
+        opcao = input("\nDigite a opção desejada: ")
+        
+        if opcao == "1":
+            mensagem_original = input("Digite a mensagem para codificar: ")
+            deslocamento = int(input("Digite o deslocamento para a cifra de César: "))
+            
+            mensagem_cifrada = cifra_cesar(mensagem_original, deslocamento)
+            print(f"\nMensagem codificada: {mensagem_cifrada}")
+        
+        elif opcao == "2":
+            mensagem_cifrada = input("Digite a mensagem para decodificar: ")
+            
+            print("\nTentando decodificar usando força bruta:")
+            forca_bruta(mensagem_cifrada)
+        
+        elif opcao == "0":
+            print("Encerrando o programa.")
+            break
+        
+        else:
+            print("Opção inválida! Tente novamente.")
